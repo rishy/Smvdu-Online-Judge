@@ -30,7 +30,10 @@ public class Cpp extends Language {
 			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dir + "/" + file)));
 			out.write(contents);
 			out.close();
-			// create the compiler script
+                        
+                        System.out.println("Compilation Start...");
+			
+                        // create the compiler script
 			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dir + "/compile.sh")));
 			out.write("cd \"" + dir +"\"\n");
 			out.write("g++ -lm " + file + " 2> err.txt");
@@ -38,8 +41,11 @@ public class Cpp extends Language {
 			Runtime r = Runtime.getRuntime();
 			Process p = r.exec("chmod +x " + dir + "/compile.sh");
 			p.waitFor();
+                        
+                        System.out.println("Executing Command");
 			p = r.exec(dir + "/compile.sh"); // execute the compiler script
 			p.waitFor();
+                        System.out.println("Execution Done");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

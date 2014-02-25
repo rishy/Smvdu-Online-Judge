@@ -60,17 +60,24 @@ public class RequestThread extends Thread {
 				l = new Java(file, timeout, contents, dir.getAbsolutePath());
 			else if(lang.equals("python"))
 				l = new Python(file, timeout, contents, dir.getAbsolutePath());
+                        
+                        System.out.println("Language Selected:- "+lang);
 			l.compile(); // compile the file
 			String errors = compileErrors();
 			if(!errors.equals("")) { // check for compilation errors
-				out.println("0");
+				System.out.println("Compilation Error");
+                                out.println("0");
 				out.println(errors);
 			} else {
 				// execute the program and return output
 				l.execute();
-				if(l.timedout)
-					out.println(2);
+				if(l.timedout){
+                                    System.out.println("Time Limit Exceedd");
+                                    out.println(2);
+                                        
+                                }
 				else {
+                                        System.out.println("Problem Successfully Solved");
 					out.println("1");
 					out.println(execMsg());
 				}
